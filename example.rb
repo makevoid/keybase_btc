@@ -1,3 +1,5 @@
+require_relative "keybase_btc"
+
 # FUNC 1
 # find other btc address
 #
@@ -7,14 +9,17 @@
 # KeybaseBtc.me.find!
 
 KeybaseBtc.configs.username = "makevoid"
-KeybaseBtc.me.find!
+puts "users: "
+puts KeybaseBtc.me.find_users!
+puts "btc addresses: "
+puts KeybaseBtc.me.find_btc_addresses!
 
 # # db/usernames.hson
 # USERNAMES = ["...", "...", "..."] #...
 
 # # ADDON
 # #
-# # OnenameIo.search 
+# # OnenameIo.search
 
 # # FUNC 2
 # #
