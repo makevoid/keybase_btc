@@ -110,7 +110,7 @@ class KeybaseBtc
     )
 
     BTC_ADDRESSES = [
-      { username: "jacopo", btc_address: "a890sduasoihdaoisd" },
+      # { username: "jacopo", btc_address: "a890sduasoihdaoisd" },
     ]
 
     attr_reader :username
@@ -136,7 +136,17 @@ class KeybaseBtc
     end
 
     def find_btc_addresses!
-
+      agent = Mechanize.new
+      USERS.each do |username|
+        url   = "https://#{KEYBASE_HOST}/#{username}"
+        page  = agent.get url
+        btc_address = page.search(".currency-address").inner_text
+        BTC_ADDRESSES << {
+          username: username,
+          btc_address: btc_address,
+        }
+      end
+      BTC_ADDRESSES
     end
   end
 

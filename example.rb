@@ -9,8 +9,8 @@ require_relative "keybase_btc"
 # KeybaseBtc.me.find!
 
 KeybaseBtc.configs.username = "makevoid"
-puts "users: "
-puts KeybaseBtc.me.find_users!
+# puts "users: "
+# puts KeybaseBtc.me.find_users!
 puts "btc addresses: "
 puts KeybaseBtc.me.find_btc_addresses!
 
