@@ -16,6 +16,9 @@ require 'mechanize'
 # everytime it will receive btc, even 0.1
 # It will donate X
 
+NUM_RESULTS = ARGV[0].to_i if ARGV[0]
+
+
 require 'hashie/mash'
 
 
@@ -154,7 +157,8 @@ class KeybaseBtc
       url   = "https://#{KEYBASE_HOST}/#{username}"
       agent = Mechanize.new
       # 20.times do |num|
-      20.times do |num|
+      num = NUM_RESULTS || 20
+      num.times do |num|
         page  = agent.get url
         links = page.search(".td-follower-info a:first")
         links.each do |link|
@@ -184,8 +188,9 @@ class KeybaseBtc
 
     def find_btc_addresses_w_balance!
       find_btc_addresses!
-      BTC_ADDRESSES.each do |btc_addr|
+      BTC_ADDRESSES.each_with_index do |btc_addr, idx|
         btc_addr["balance"] = BTCBalance.get(btc_addr["btc_address"])
+        break if NUM_RESULTS > idx
       end
       BTC_ADDRESSES
     end
